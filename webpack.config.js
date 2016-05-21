@@ -26,8 +26,9 @@ module.exports = {
 
   module: {
     loaders: [
-      { test: /\.(js|jsx)$/, exclude: /node_modules/, loader: 'babel', query: {
-          presets: ['es2015','react']
+      { test: /\.(js|jsx)$/, exclude: /node_modules/, loader: 'babel-loader', query: {
+          presets: ['es2015', 'react'],
+          plugins: ['transform-object-rest-spread']
         }
       },
       { test: /\.css$/, loader: 'style!css' },
@@ -44,7 +45,7 @@ module.exports = {
   },
 
   plugins: [
-    // new webpack.optimize.CommonsChunkPlugin('shared.js'),
+    new webpack.optimize.CommonsChunkPlugin('vendor.js'),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
       __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false'))
