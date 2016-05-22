@@ -50,6 +50,7 @@
     "history": "^2.1.0",
     "isomorphic-fetch": "^2.2.1",
     "isparta-loader": "^2.0.0",
+    "moment": "^2.13.0",
     "pretty-bytes": "^3.0.1",
     "qs": "^6.1.0",
     "react": "^15.0.0",
