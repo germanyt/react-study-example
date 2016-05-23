@@ -2,6 +2,8 @@ import React from 'react';
 
 import {FormGroup, FormControl} from 'react-bootstrap';
 
+import FilterForm from './filter.component';
+
 const Button = React.createClass({
 	contextTypes: {
 		btnClass: React.PropTypes.string
@@ -76,7 +78,7 @@ const MessageForm = React.createClass({
     return (
       <form onSubmit={this.handleSubmit}>
         <FormGroup>
-          <FormControl type="text" name="text" placeholder="Normal text" value={this.state.text} onChange={this.handleChange} />
+          <FormControl type="text" name="text" placeholder="Input message" value={this.state.text} onChange={this.handleChange} />
         </FormGroup>
         <Button>Add</Button>
       </form>
@@ -96,13 +98,15 @@ const MessageList = React.createClass({
     };
   },
   render() {
-    let children = this.props.list.map(function(message, index) {
-      return <Message msg={message} index={index} key={index} />;
+    let children = this.props.messages.map(function(message, index) {
+      let id = message.id || index;
+      return <Message msg={message} index={id} key={index} />;
     });
     return (
       <div>
         <MessageForm onSubmit={this.props.onAddMessage} />
         {children}
+        <FilterForm onChange={this.props.onChangeFilterKey} />
       </div>
     );
   }

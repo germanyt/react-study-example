@@ -2,22 +2,54 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { Message } from '../components/';
-import { addMessage, deleteMessage } from '../actions';
+import { addMessage, deleteMessage, inputFilterKey } from '../actions';
 
 // 哪些 Redux 全局的 state 是我们组件想要通过 props 获取的？
-function mapStateToProps(state) {
-  return {
-    list: state.Message.list
-  };
-}
+// function mapStateToProps(state) {
+//   return {
+//     messages: state.message
+//   };
+// }
 
 // 哪些 action 创建函数是我们想要通过 props 获取的？
 function mapDispatchToProps(dispatch) {
   return {
     onAddMessage: (data) => dispatch(addMessage(data)),
-    onDeleteMessage: (index) => dispatch(deleteMessage(index))
+    onDeleteMessage: (index) => dispatch(deleteMessage(index)),
+    onChangeFilterKey: (key) => dispatch(inputFilterKey(key))
   };
 }
+
+function filterMessage(messages, filter_key) {
+	if(filter_key){
+		var messageList = [];
+		messages.map( (message, index) => {
+
+			if( ~message.text.indexOf(filter_key) ){
+				messageList.push({
+					id: index,
+					text: message.text,
+					create_time: message.create_time
+				});
+			};
+		});
+
+		return messageList;
+	} else {
+		return messages;
+	}
+}
+function mapStateToProps(state){
+	return {
+		messages: filterMessage(state.message, state.filter.key),
+		filter_key: state.filter.key
+	}
+}
+
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(Message);
 
 export default connect(
   mapStateToProps,

@@ -1,4 +1,4 @@
-import { ADD_MESSAGE, DELETE_MESSAGE } from './constants';
+import { ADD_MESSAGE, DELETE_MESSAGE, INPUT_FILTER_KEY } from './constants';
 
 import moment from 'moment';
 
@@ -40,4 +40,12 @@ function getTime(data){
 
 		resolve(data);
 	});
+}
+
+
+export function inputFilterKey(key) {
+  return {
+    type: INPUT_FILTER_KEY,
+    key
+  }
 }

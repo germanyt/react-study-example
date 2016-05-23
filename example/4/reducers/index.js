@@ -1,7 +1,11 @@
 import { combineReducers } from 'redux';
 
-import * as reducers from './message.reducer';
+import message from './message.reducer';
+import filter from './filter.reducer';
 
-const messageApp = combineReducers( reducers );
+const messageApp = combineReducers( {
+	message,
+	filter
+} );
 
 export default messageApp;

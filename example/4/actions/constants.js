@@ -1,2 +1,4 @@
 export const ADD_MESSAGE = 'ADD_MESSAGE';
 export const DELETE_MESSAGE = 'DELETE_MESSAGE';
+
+export const INPUT_FILTER_KEY = 'INPUT_FILTER_KEY';
