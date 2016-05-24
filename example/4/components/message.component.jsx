@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {FormGroup, FormControl} from 'react-bootstrap';
+import {FormGroup, FormControl, Alert} from 'react-bootstrap';
 
 import FilterForm from './filter.component';
 
@@ -97,13 +97,29 @@ const MessageList = React.createClass({
       removeMessage: this.props.onDeleteMessage
     };
   },
+  handleAlertDismiss() {
+    this.props.onErrorClose();
+  },
   render() {
     let children = this.props.messages.map(function(message, index) {
       let id = message.id || index;
       return <Message msg={message} index={id} key={index} />;
     });
+
+    let alert;
+
+    if(this.props.getTime.loading){
+      alert = <Alert bsStyle="warning">
+          获取时间中...
+        </Alert>
+    } else if(this.props.getTime.errorInfo){
+      alert = <Alert bsStyle="danger">
+          获取时间失败。{this.props.getTime.errorInfo} <Button onClick={this.handleAlertDismiss}>Close</Button>
+        </Alert>
+    }
     return (
       <div>
+        {alert}
         <MessageForm onSubmit={this.props.onAddMessage} />
         {children}
         <FilterForm onChange={this.props.onChangeFilterKey} />

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { Message } from '../components/';
-import { addMessage, deleteMessage, inputFilterKey } from '../actions';
+import { addMessage, deleteMessage, inputFilterKey, getTimeErrorClear } from '../actions';
 
 // 哪些 Redux 全局的 state 是我们组件想要通过 props 获取的？
 // function mapStateToProps(state) {
@@ -15,7 +15,8 @@ function mapDispatchToProps(dispatch) {
   return {
     onAddMessage: (data) => dispatch(addMessage(data)),
     onDeleteMessage: (index) => dispatch(deleteMessage(index)),
-    onChangeFilterKey: (key) => dispatch(inputFilterKey(key))
+    onChangeFilterKey: (key) => dispatch(inputFilterKey(key)),
+    onErrorClose: () => dispatch(getTimeErrorClear())
   };
 }
 
@@ -41,7 +42,8 @@ function filterMessage(messages, filter_key) {
 function mapStateToProps(state){
 	return {
 		messages: filterMessage(state.message, state.filter.key),
-		filter_key: state.filter.key
+		filter_key: state.filter.key,
+		getTime: state.getTime
 	}
 }
 

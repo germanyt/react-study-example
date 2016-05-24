@@ -1,20 +1,24 @@
-import { ADD_MESSAGE, DELETE_MESSAGE, INPUT_FILTER_KEY } from './constants';
+import { ADD_MESSAGE, DELETE_MESSAGE, INPUT_FILTER_KEY, GET_TIME_REQUEST, GET_TIME_FAILURE, GET_TIME_SUCCESS, GET_TIME_ERROR_CLEAR } from './constants';
 
 import moment from 'moment';
 
 export function addMessage(data) {
-  return {
-    type: ADD_MESSAGE,
-    data
-  };
+  // return {
+  //   type: ADD_MESSAGE,
+  //   data
+  // };
 
-  // return dispatch => {
-  //   getTime(data).then(data => {
+  return dispatch => {
+    dispatch( getTimeRequest() );
+    getTime().then(time => {
+      dispatch( getTimeSuccess() );
 
-  //     dispatch(addMessageToStore(data));
+      data.create_time = time;
 
-  //   }).catch(error => console.log(error));
-  // }
+      dispatch( addMessageToStore(data) );
+
+    }).catch(error => dispatch( getTimeFailure(error && error.message || error) ));
+  }
 
 }
 
@@ -32,13 +36,37 @@ export function deleteMessage(index) {
 	}
 }
 
+function getTimeRequest() {
+  return {
+    type: GET_TIME_REQUEST
+  }
+}
+
+function getTimeFailure(error) {
+  return {
+    type: GET_TIME_FAILURE,
+    error
+  }
+}
+
+function getTimeSuccess(data) {
+  return {
+    type: GET_TIME_SUCCESS,
+    data
+  }
+}
+
+export function getTimeErrorClear (){
+  return {
+    type: GET_TIME_ERROR_CLEAR
+  }
+}
+
 function getTime(data){
 	return new Promise(function(resolve, reject){
-		let time = moment().format('YYYY-MM-DD HH:mm:ss');
+    let time = moment().format('YYYY-MM-DD HH:mm:ss');
 
-		data.create_time = time;
-
-		resolve(data);
+		resolve(time);
 	});
 }
 
