@@ -3,18 +3,18 @@ import { ADD_MESSAGE, DELETE_MESSAGE, INPUT_FILTER_KEY } from './constants';
 import moment from 'moment';
 
 export function addMessage(data) {
-  // return {
-  //   type: ADD_MESSAGE,
-  //   data
-  // };
+  return {
+    type: ADD_MESSAGE,
+    data
+  };
 
-  return dispatch => {
-    getTime(data).then(data => {
+  // return dispatch => {
+  //   getTime(data).then(data => {
 
-      dispatch(addMessageToStore(data));
+  //     dispatch(addMessageToStore(data));
 
-    }).catch(error => console.log(error));
-  }
+  //   }).catch(error => console.log(error));
+  // }
 
 }
 

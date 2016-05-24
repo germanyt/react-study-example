@@ -13,8 +13,8 @@ export default function message(state = initState, action) {
 			// return { ...state, list };
 		case DELETE_MESSAGE:
 			let index = action.index;
-			if(index >= 0 && index < state.list.length){
-				return [...state.slice(0, index), ...state.list.slice(index+1)];
+			if(index >= 0 && index < state.length){
+				return [...state.slice(0, index), ...state.slice(index+1)];
 				// return {...state, list};
 			}
 

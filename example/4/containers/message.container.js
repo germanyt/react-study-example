@@ -1,4 +1,3 @@
-import { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { Message } from '../components/';
@@ -45,11 +44,6 @@ function mapStateToProps(state){
 		filter_key: state.filter.key
 	}
 }
-
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(Message);
 
 export default connect(
   mapStateToProps,
